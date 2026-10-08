@@ -1,0 +1,29 @@
+# yaml-language-server: $schema=https://www.isoloom.com/schema/v1.json
+# OWASP SKF Stored Cross-Site Scripting (OWASP Security Knowledge Framework labs, by Glenn ten Cate, Riccardo ten Cate and the SKF contributors) as an Isoloom spec:
+# a Spring Boot page that stores submitted content in a database and shows it to every visitor unescaped (stored XSS). The SKF lab folder java/xss-stored is
+# vendored unchanged in build/web/app/ and built by an overlay of its Dockerfile (build/web/Dockerfile).
+# `isoloom generate`, then `isoloom run docker`.
+version: 1
+name: skf-xss-stored
+
+networks:
+  lab: { cidr: 10.60.135.0/24, internet: false }
+
+machines:
+  web:
+    networks: { lab: 10 }
+    services: [{ port: 5000, name: web, http: true, publish: 5050 }]
+    resources: { cpus: 1, memory_mb: 768 }
+    docker:
+      build: build/web
+
+checks:
+  - name: the lab answers
+    http: http://web:5000/home/1
+    wait: 300
+  - name: page 1 has the edit form that stores its content
+    script: checks/form.sh
+
+message: |
+  OWASP SKF Stored Cross-Site Scripting answers at http://localhost:{{ machines.web.services.0.publish }}/.
+  Each page at /home/<id> has an Edit form. What you save is shown again to everyone.

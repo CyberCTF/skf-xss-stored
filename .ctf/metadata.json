@@ -1,0 +1,14 @@
+{
+  "title": "OWASP SKF Stored Cross-Site Scripting",
+  "description": "A Java Spring Boot application that saves user-submitted content in its database and renders it back to every visitor without output encoding.",
+  "question": "Store a payload that runs JavaScript in the browser of every user who later opens the page (stored cross-site scripting).",
+  "category": "WEB",
+  "difficulty": 1,
+  "evidence_kind": "SECRET",
+  "capabilities": [
+    "xss",
+    "stored-xss",
+    "javascript",
+    "spring-boot"
+  ]
+}
