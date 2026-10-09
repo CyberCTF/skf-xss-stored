@@ -4,11 +4,5 @@
   "question": "Store a payload that runs JavaScript in the browser of every user who later opens the page (stored cross-site scripting).",
   "category": "WEB",
   "difficulty": 1,
-  "evidence_kind": "SECRET",
-  "capabilities": [
-    "xss",
-    "stored-xss",
-    "javascript",
-    "spring-boot"
-  ]
+  "evidence_kind": "SECRET"
 }
