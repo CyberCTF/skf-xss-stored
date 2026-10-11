@@ -1,0 +1,44 @@
+{
+  "objectives": [
+    {
+      "key": "main",
+      "title": "Read the flag",
+      "prompt": "Store a script for every visitor and retrieve the flag (/ctf/flag).",
+      "check": {
+        "evidence": "SECRET",
+        "format": "FLAG{%s}"
+      },
+      "dev": "FLAG{dev-skf-xss-stored}",
+      "hints": [
+        "Submitted content is saved and shown to every visitor.",
+        "Read about stored cross-site scripting and output encoding."
+      ],
+      "steps": [
+        {
+          "key": "framework",
+          "title": "Identify the framework",
+          "prompt": "Which Java framework serves the application?",
+          "check": {
+            "answer": [
+              "spring boot",
+              "spring"
+            ]
+          }
+        },
+        {
+          "key": "class",
+          "title": "Name the weakness",
+          "prompt": "Which XSS type is this?",
+          "check": {
+            "answer": [
+              "stored xss",
+              "stored",
+              "persistent xss",
+              "stored cross-site scripting"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -4,6 +4,7 @@
 #   eclipse-temurin:17.0.20.1_1-jdk-alpine-3.22. A Java 8 JDK (Temurin 8u504) fails the TLS
 #   handshake with Maven Central (handshake_failure), so the build uses JDK 17; the pom still
 #   compiles for Java 8 and Spring Boot 2.7 runs on 17.
+# - it creates /ctf owned by the lab user, for the per-player flag.
 
 ### STATIC LAYER
 FROM eclipse-temurin:17.0.20.1_1-jdk-alpine-3.22 as builder
@@ -20,6 +21,9 @@ COPY app/pom.xml /skf/
 RUN addgroup -S spring && adduser -S spring -G spring && chown -R spring:spring /skf
 
 ### SWITCHING TO THE LIMITED USER
+# Overlay: the flag folder /ctf, owned by the lab user so the flag init (which runs as that user) can write it.
+RUN mkdir -p /ctf && chown spring:spring /ctf
+
 USER spring:spring
 WORKDIR /skf
 RUN mvn package -Dmaven.test.skip=true
